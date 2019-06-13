@@ -1,46 +1,45 @@
-Sub StockTKR()
+Sub StkTRK()
 
-
-'Delcare Variables
-    Dim Col  As Long
-    Dim Total_Volume As Long
+'Declare variables
+    Dim writetorow  As long
+    Dim Total_Volume As long
     Dim ws As Worksheet
-    
-' loop through all workbooks
-For Each ws In ThisWorkbook.Worksheets
-ws.Activate
-
  
 ' Add Heading for summary
     Cells(1, 9).Value = "Ticker"
     Cells(1, 10).Value = "Total Stock Volume"
 
-    Col = 2
-    Cells(Col, 9).Value = Cells(Col, 1).Value
-    
-'find last row
-    lastrow = Cells(Rows.Count, 1).End(xlUp).row
- 
- 'start loopin
-  For row = 2 To lastrow
+    writetorow = 2
+    Cells(writetorow, 9).Value = Cells(writetorow, 1).Value
 
-    If Cells(row, 1).Value = Cells(Col, 9) Then
+'establish last row
+    lastrow = Cells(Rows.Count, 1).End(xlUp).Row
     
+' loop through all worksheets
+For Each ws In ThisWorkbook.Worksheets
+ws.Activate
+
+'start looping
+    For Row = 2 To lastrow
+
+    If Cells(Row, 1).Value = Cells(writetorow, 9) Then
      
-     Total_Volume = Total_Volume + Cells(row, 7).Value
+     Total_Volume = Total_Volume + Cells(Row, 7).Value
      
      Else
      
-     Cells(Col, 10).Value = Total_Volume
-     Total_Volume = Cells(row, 7).Value
-     Col = Col + 1
-     Cells(Col, 9).Value = Cells(row, 1).Value
+     Cells(writetorow, 10).Value = Total_Volume
+     Total_Volume = Cells(Row, 7).Value
+     writetorow = writetorow + 1
+     Cells(writetorow, 9).Value = Cells(Row, 1).Value
      End If
-     Next row
-              
-         
-     Cells(Col, 10).Value = Total_Volume
-
-Next ws
-
+     
+     Next Row
+     
+     Cells(writetorow, 10).Value = Total_Volume
+     
+ Next ws
+     
 End Sub
+
+
