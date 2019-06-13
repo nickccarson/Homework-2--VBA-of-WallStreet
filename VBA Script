@@ -1,0 +1,46 @@
+Sub StockTKR()
+
+
+'Delcare Variables
+    Dim Col  As Long
+    Dim Total_Volume As Long
+    Dim ws As Worksheet
+    
+' loop through all workbooks
+For Each ws In ThisWorkbook.Worksheets
+ws.Activate
+
+ 
+' Add Heading for summary
+    Cells(1, 9).Value = "Ticker"
+    Cells(1, 10).Value = "Total Stock Volume"
+
+    Col = 2
+    Cells(Col, 9).Value = Cells(Col, 1).Value
+    
+'find last row
+    lastrow = Cells(Rows.Count, 1).End(xlUp).row
+ 
+ 'start loopin
+  For row = 2 To lastrow
+
+    If Cells(row, 1).Value = Cells(Col, 9) Then
+    
+     
+     Total_Volume = Total_Volume + Cells(row, 7).Value
+     
+     Else
+     
+     Cells(Col, 10).Value = Total_Volume
+     Total_Volume = Cells(row, 7).Value
+     Col = Col + 1
+     Cells(Col, 9).Value = Cells(row, 1).Value
+     End If
+     Next row
+              
+         
+     Cells(Col, 10).Value = Total_Volume
+
+Next ws
+
+End Sub
